@@ -871,7 +871,6 @@ client.on('message', message => {
 ////////////
 
 
-download report
 const setxp = JSON.parse(fs.readFileSync('./setxp.json' , 'utf8'));
 client.on('message', message => {
            if (!message.channel.guild) return;
