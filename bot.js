@@ -55,7 +55,7 @@ setInterval(() => {
 > my invites , badeg , avatar , 
 
 *** <a:s_:849928845750698004> __SeT Commands__***
-setLog , setSug 
+setLog , setSug ,setprefix
 
 
 ***__ <a:emoji_54:853539663389523988> Moderation Commands__***
