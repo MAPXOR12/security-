@@ -55,7 +55,7 @@ setInterval(() => {
 > my invites , badeg , avatar , 
 
 *** <a:s_:849928845750698004> __SeT Commands__***
-setLog , setSug ,setprefix
+setLog , setSug ,setprefix , setQuor
 
 
 ***__ <a:emoji_54:853539663389523988> Moderation Commands__***
@@ -781,7 +781,7 @@ message.channel.send(embed)
 
 ///////
 
-let Prefix = "+"; 
+let Prefix = "s!!"; 
 
 client.on("message", async message => {
 let prefix2 = await db.fetch(`prefix_${message.guild.id}`);
