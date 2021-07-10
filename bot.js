@@ -618,7 +618,101 @@ client.on("roleUpdate", (oldRole, newRole) => {
 
 
 
-
+const wta = JSON.parse(fs.readFileSync('./wta.json' , 'utf8'));
+client.on('message', message => {
+           if (!message.channel.guild) return;
+    let room = message.content.split(' ').slice(1).join(" ")
+    let channel = message.guild.channels.cache.find(channel => channel.name ===  `${room}`) || message.mentions.channels.first()
+    if(message.content.startsWith(prefix + "setQuotes")) {
+        if(!message.channel.guild) return;
+        if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('**Sorry But You Dont Have Permission** `MANAGE_GUILD`' );
+if(!room) return message.channel.send('**Please Type The Name Channel Or mention**')
+if(!channel) return message.channel.send('**Cant Find This Channel**')
+let embed = new Discord.MessageEmbed()
+.setAuthor(message.author.username,message.author.avatarURL())
+.setThumbnail(message.author.avatarURL())
+.setTitle('**✅Done Check The Quotes Code Has Been Setup**')
+.addField('Channel:', `${room}`)
+.addField('Server', `${message.guild.name}`)
+.addField('Requested By:', `${message.author}`)
+.setColor("RANDOM")
+.setFooter(`${client.user.username}`)
+.setTimestamp()
+message.channel.send(embed)
+wta[message.guild.id] = {
+channel: channel.name
+}
+fs.writeFile("./wta.json", JSON.stringify(wta), (err) => {
+if (err) console.error(err)
+})}})
+ 
+var wtta = ["نـەمـزانـۍ ڕۆژێـــڪٮ دێـــت..لـــەپــــۆســتەکــــانم بــــاسی نەبونـــیت بــــڪـەم..","ئـەوەیی تـۆیی ئـەوێ بـەھەر بیانویەک بێ ئـەمێنێتەوە","لێم زویر مەبە ھەر تۆم ھەیە شەڕی پێ بفرۆشم","درەنگ تر دەمرن ئەوانەی کەسێک خۆشی دەوێن","ژیان زۆر سەیرە ڕۆژانێڪ لەبەر دڵ خۆشی ناخەوین ڕۆژانێڪ لەبەر دڵ تەنگی ناخەوین!","ھەموو ئەو کەسانەی حەزیان لە تەنیاییە لە ناخەوە لەگەڵ ئازیزترین کەسیان، ئەژین","وتـی چاوەکانــی تۆ ژیانـی منن ئـەی بۆ ئێستا ژیانی منت پرکردوە لە گریان؟...","خۆشمەوێیی بە سەلامەتی ھەموو ئەوانەی حەسودی بە جێگاکەت دەبەن","لەناو هەموو برینەڪانی ژیانما تۆ ئەو برینەی بەمردن لەبیر ئەچیتەوە!","تۆ خۆت نیەتی مانەوەت نەبوو بیانوو لەچی دەگری","مرۆڤ لە تەنهاییشدا تەنها نیە هەمیشە شتێک،کەسێک هەیە کە تۆ ئازار بدات(:","نەورۆزتان پیرۆز تەنهای ئێمەش مۆبارەک","تۆش ڕۆیشتی وەک ھەموو ئەوانەی قەرار وابوو قەت نەڕۆن","ھەموو شتێکی لە دەست چو دەگەڕێتەوە ڕێک ئەو کاتەی فیر بووی بێ ئەو بژی","میھرەبان بن ڕۆژێک دێ ھەرگیز یەکتری نابینەوە","من ئەھلی منەت کێشان نیم دەمێنیتەوە باشە نامێنیتەوە باشتر","کە تۆ خۆت ڕۆحی ڕەوانی ئەی ڕۆح نشین بێ من مەڕۆ","ڕووناكیەكانم كوژاندەوە ئەوەی منی ئەوێ فەرموو با خۆی لە پێش چاوما بسوتێنێ","ئێمە دەمێکە شەڕمان نەکردوە شەڕ لەسەر دڵخۆش کردنی یەکتر ئەڵێم","دەستم بگرە تەواوی بوون و نەبوونی من تۆیی","ئێمە ھەموو مان لە چیرۆکی کەسێک دا خراپ وبێ وەفاین","لێی گەڕێ باشەو درێژ بێ خۆری ئێمە قەت ھەڵ نایا","کە تۆ خۆت ڕۆحی ڕەوانی ئەی ڕۆح نشین بێ من مەڕۆ","ھەموو شتێکی لە دەست چو دەگەڕێتەوە ڕێک ئەو کاتەی فیر بووی بێ ئەو بژی","بووی بە دۆستی بێگانەو من تەنیا مام","ئارام ترین شوێن لەناو ئەم ژاوە ژاوە باوەشی تۆیە","خۆزگە ئەو توانایەم ھەبوایە بمتوانیایە پێت بڵێم خۆت داپۆشە نەوەك سەرمات بێت","لە دڵی ھەموو ماندا مرۆڤێک ھەیە ھەرگیز نامرێ ئەگەر بوونیشی نەمابێ","ئێمە دەمێکە شەڕمان نەکردوە شەڕ لەسەر دڵخۆش کردنی یەکتر ئەڵێم","ڕووناكیەكانم كوژاندەوە ئەوەی منی ئەوێ فەرموو با خۆی لە پێش چاوما بسوتێنێ","بمرم خۆشەویستیەكەتم بۆ ھەر كێ باسكرد، وتی ئەو خۆشی نەویستوویت!","مۆسیقا برینەکانمی ئاشکرا کرد","ئـەوەیی تـۆیی ئـەوێ بـەھەر بیانویەک بێ ئـەمێنێتەوە","ھەموو شتێک تێئەپەڕێت.","هاتمەوە ، تا خەمەکانم نوێ بکەمەوە..","ئیدی بەبوونی ڪەس مەڵێن جوان ڕۆژێڪ ناشرینی ئەڪات بە نەبوونی..","من ئـەھلی مـنەت کـێشان نـیم دەمێنیتەوە باشە نـامێنیتەوە باشتر","میھرەبان بن ڕۆژێک دێ ھەرگیز یەکتری نابینەوە","کەسێک لە ژیانما نیە،ژیانم لەکەسێکایە.","ھەموویان مرۆڤن لەکاتێکدا تۆ ژیانی","دەستم بگرە تەواوی بوون و نەبوونی من تۆیی","خۆشمەوێیی بە سەلامەتی ھەموو ئەوانەی حەسودی بە جێگاکەت دەبەن","من دەستەکانم ماندووی نوسینن بۆتۆ و تۆش ئاشقی دەستەکانی ئەوی!.","من دەستەکانم ماندووی نوسینن بۆتۆ و تۆش ئاشقی دەستەکانی ئەوی!.","بەڵێنێکی بچوکت پێ دەدەم ، ڕۆژێک لە ھەموو کەسێکدا دەگەڕێی بۆ منێکی تر ، بەڵام نایدۆزیەوە","شـەو وەرە خـەونـم دڵـم بـۆت تـەنـگ بـووە..)!","پەنجەرەكەت بكەرەوە هەر دڵدارەكەی جارانم..","برینەکانم لە دڵخۆشیەکانی تۆ قوڵترە ،پێکەنینەکانشت ژەھرێکە بۆ برینەکانم","بۆ دواجارە بەجێت دێڵم سا ماڵ ئاوا ئازیزەکەم","بەخەیاڵیشمدا نەهاتبو هێندە تەنهابم..","ڕاوەستە با قوڵتر لە سیمات ڕابمێنم کێ دەزانێ ڕەنگە تاتۆدێیەوە من نەمێنم"];
+ 
+client.on("message", message => { 
+  if (message.content.startsWith(`${prefix}startQuote`)) {
+      if (!message.guild.member(message.author).hasPermission("ADMINISTATOR")) {
+        message.channel.send('**You dont Have premission`administrator` **');
+    } else { 
+    setInterval(() => {
+      let channel = message.guild.channels.cache.find(channel => channel.name === wta[message.guild.id].channel)
+      channel.send(wtta);
+    }, 60000);
+   }
+  } 
+});
+ 
+ 
+client.on('message', message => {
+            if(message.content.startsWith(prefix + "tWta on")) {
+                if(!message.channel.guild) return;
+                                      if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('**Sorry But You Dont Have Permission** `MANAGE_GUILD`' )
+ 
+        wta[message.guild.id] = {
+        onoff: 'On',
+        }
+ 
+       let embed = new Discord.MessageEmbed()
+                      .setTitle('**✅Done Check The Toggle Wta is On**')
+                      .addField('Name Server', message.guild.name)
+                      .addField('Toggle', `${wta[message.guild.id].onoff}`)
+                      .addField('By', `${message.author.username}`)
+                      .setThumbnail(message.author.avatarURL())
+                      .setFooter(`${client.user.username}`)                  
+                     message.channel.send(embed)       
+                        fs.writeFile("./wta.json", JSON.stringify(wta), (err) => {
+            if (err) console.error(err)
+            .catch(err => {
+              console.error(err);
+          });
+            });
+                  }
+ 
+                })
+client.on('message', message => {
+            if(message.content.startsWith(prefix + "tWta off")) {
+                if(!message.channel.guild) return;
+if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('**Sorry But You Dont Have Permission** `MANAGE_GUILD`' )        
+ 
+        wta[message.guild.id] = {
+        onoff: 'Off',
+        }
+       let embed = new Discord.MessageEmbed()
+                      .setTitle('**✅Done Check The Toggle Wta is Off**')
+                      .addField('Name Server', message.guild.name)
+                      .addField('Toggle', `${wta[message.guild.id].onoff}`)
+                      .addField('By', `${message.author.username}`)
+                      .setThumbnail(message.author.avatarURL())
+                      .setFooter(`${client.user.username}`)                  
+                     message.channel.send(embed)                  
+                    fs.writeFile("./wta.json", JSON.stringify(wta), (err) => {
+            if (err) console.error(err)
+            .catch(err => {
+              console.error(err);
+          });
+            });
+                  }
+ 
+                })
 
     client.on('message',async message => {
   if(message.content.startsWith(prefix + "channel info")) { 
