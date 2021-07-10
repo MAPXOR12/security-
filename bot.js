@@ -52,7 +52,10 @@ __Info Commands__
 > user info , server info , 
 > servers , role , channel info 
 > my invites , badeg , avatar , 
+***__SeT Commands__***
+setLog 
 __Moderation Commands__ 
+
 > lock , unlock , clear , ban , kick
 > unban , mute , unmute , bans
 __This is a little prefix__
@@ -73,7 +76,53 @@ __This is a little prefix__
   }
 });
 
-
+const sug = JSON.parse(fs.readFileSync("./sug.json", "utf8"));
+client.on("message", message => {
+  if (!message.channel.guild) return;
+  let room = message.content.split(" ").slice(1).join(" ");
+  let channel = message.guild.channels.cache.find(c => c.name === `${room}`) || message.mentions.channels.first();
+  if (message.content.startsWith(prefix + "setSug")) {
+    if (!message.channel.guild) return;
+    if (!message.member.hasPermission("MANAGE_GUILD"))
+      return message.channel.send(
+        "**Sorry But You Dont Have Permission** `MANAGE_GUILD`"
+      );
+    if (!room) return message.channel.send("**Please Type The Name Channel or mention**");
+    if (!channel) return message.channel.send("**Cant Find This Channel**");
+    let embed = new Discord.MessageEmbed()
+      .setAuthor(message.author.username, message.author.avatarURL())
+      .setThumbnail(message.author.avatarURL())
+      .setTitle("**✅Done Check The Sug Code Has Been Setup**")
+      .addField("Channel:", `${room}`)
+      .addField("Server", `${message.guild.name}`)
+      .addField("Requested By:", `${message.author}`)
+      .setColor("RANDOM")
+      .setFooter(`${client.user.username}`)
+      .setTimestamp();
+    message.channel.send(embed);
+    sug[message.guild.id] = {
+      channel: channel.name
+    };
+    fs.writeFile("./sug.json", JSON.stringify(sug), err => {
+      if (err) console.error(err);
+    });
+  }
+});
+client.on('message', message => { 
+    if(message.content.startsWith(`${prefix}sug`)) {    
+    		let args = message.content.split(' ').slice(1);
+       let sugest = client.channels.cache.find(channel => channel.name ===  sug[message.guild.id].channel)
+    if(!sugest) return message.reply(`**Dont Setup channel please Type ${prefix}setSug channel name or mention channel**`)
+    let blacksug = new Discord.MessageEmbed()
+    .setTitle('New Suggest')
+    .addField('Suggest By', `${message.author}`)
+    .addField('Suggest', `${args}`)
+    .addField('Guild Name', message.guild.name)
+    .setFooter(`Request By ${message.author.username}#${message.author.discriminator}`, message.author.avatarURL())
+    sugest.send(blacksug).then(bj => {
+  bj.react("❌") 
+  bj.react("✅")
+    })}})
 
   
   
