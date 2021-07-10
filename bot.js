@@ -18,10 +18,10 @@ const dateFormat = require("dateformat");
 var table = require("table").table;
 const Discord = require("discord.js");
 const cmd = require("node-cmd");
-const prefix = "m/";
+const prefix = "s!!";
 const cooldown = new Set();
 const cdtime = 7;
-client.login("");
+client.login("ODYzNDA0ODA0NTQ1MzE0ODI3.YOmaYg.VXczRAOlearFLMOi-4t7OsOGnUM");
 client.on("ready", () => {
   console.log(`${client.user.tag}`);
 });
