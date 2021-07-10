@@ -39,7 +39,7 @@ setInterval(() => {
       client.on("message", message => {
   if (message.content === prefix + "help") {
     let Dashboard = `
-__Security Commands__ 
+*** <a:emoji_11:863364865330118676>__Security Commands__*** 
 > ${prefix}anti kick - [Number]
 > ${prefix}anti ban - [Number]
 > ${prefix}anti roleC - [Number]
@@ -47,18 +47,22 @@ __Security Commands__
 > ${prefix}anti channelC - [Number]
 > ${prefix}anti channelD - [Number]
 > ${prefix}anti bot - on/off]
-> ${prefix}setting
-__Info Commands__ 
+> ${prefix}settings
+
+***<a:emoji_14:863365000089698324>__Info Commands__*** 
 > user info , server info , 
 > servers , role , channel info 
 > my invites , badeg , avatar , 
-***__SeT Commands__***
-setLog 
-__Moderation Commands__ 
+
+*** <a:s_:849928845750698004> __SeT Commands__***
+setLog , setSug 
+
+
+***__ <a:emoji_54:853539663389523988> Moderation Commands__***
 
 > lock , unlock , clear , ban , kick
-> unban , mute , unmute , bans
-__This is a little prefix__
+> unban , mute , unmute , bans , sug
+***__This is a little prefix__***
 > [ ${prefix} ]
 `;
     var addserver = `https://discord.com/api/oauth2/authorize?client_id=764487416748310570&permissions=8&scope=bot`;
@@ -777,6 +781,30 @@ message.channel.send(embed)
 
 ///////
 
+let Prefix = "+"; 
+
+client.on("message", async message => {
+let prefix2 = await db.fetch(`prefix_${message.guild.id}`);
+if (prefix2 === null) prefix2 = Prefix;
+const prefix = prefix2;
+if (!message.content.startsWith(prefix)) return;
+const args = message.content.slice(prefix.length).trim().split(/ +/g);
+const cmd = args.shift().toLowerCase();
+if (cmd === "prefix" || cmd === "setprefix") {
+if (!message.guild) return;
+if (!message.guild.member(message.author).hasPermission("ADMINISTRATOR"))
+return message.reply("**- You Don't Have `ADMINISTRATOR` Permission.**");
+if (!args[0]) return message.channel.send(`**- Please tell me what a prefix !!**`);
+if (args[0].length > 3) {
+  return message.channel.send("**Please tell me prefix under 3 numbers!!**")
+}
+db.set(`prefix_${message.guild.id}`, args[0]);
+message.channel.send(`**✅ Done, Set New Prefix \`[${args[0]}]\` From Your Server.**`);
+}
+if (cmd === "test") { // كود test للتجربة
+message.reply("**Set Prefix Working ✅**")
+}
+});
 
     client.on('message',async (msg,target) => {
   if(msg.content.startsWith(prefix + "badge")) { 
