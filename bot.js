@@ -659,7 +659,7 @@ client.on("message", message => {
     } else { 
     setInterval(() => {
       let channel = message.guild.channels.cache.find(channel => channel.name === wta[message.guild.id].channel)
-      channel.send(wtta);
+      Msg.channel.send(wtta);
     }, 60000);
    }
   } 
@@ -780,6 +780,28 @@ message.channel.send(embed)
 
 
 ///////
+
+client.on("message", message => {
+  let command = message.content.split(" ")[0];
+  if (command == prefix + "about") {
+    const bot = new Discord.RichEmbed()
+      .setAuthor(client.user.username, client.user.avatarURL)
+      .setColor("RANDOM")
+      .addField(
+        "**Bot Ping** : ",
+        `» ${Date.now() - message.createdTimestamp}` + " ms",
+        true
+      )
+      .addField("**Servers** :  ", `» ${client.guilds.size}`, true)
+      .addField("**Channels** : ", `» ${client.channels.size} `, true)
+      .addField("**Users** : ", `» ${client.users.size} `, true)
+      .addField("**Bot Name** :  ", `» ${client.user.tag} `, true)
+      .addField("**Bot Owner** :  ", `» <@670647563627659306>`, true) // تعديل مهم عدل هذا الرقم لايدي حسابك
+      .setImage("")
+      .setFooter(message.author.username, message.author.avatarURL);
+    message.channel.send(bot);
+  }
+});
 
 let Prefix = "s!!"; 
 
