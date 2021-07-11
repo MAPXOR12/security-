@@ -2609,7 +2609,9 @@ Enabled:
 Maximum Create : ${config[message.guild.id].chaCrLimit}
 -
 AntiRoleD
-Enabled: 
+Enabled: `${antiroleD[message.guild.id].onoff}`)
+
+
 Maximum Delete : ${config[message.guild.id].roleDelLimit}
 -
 AntiRoleC
